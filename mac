@@ -169,19 +169,20 @@ setup_neovim() {
 }
 
 homebrew_setup
-# dotfiles_setup
+dotfiles_setup
 
 cd $HOME
-# print_out "Installing packages"
+
+print_out "Installing packages"
 
 # Install all packages from brew.
 brew bundle
 
 # Uncomment this if you haven't setup zsh or oh-my-zsh yet.
-# set_shell
+set_shell
 
 # Setup Node, Ruby, Python, Scala and Go
-# setup_languages
+setup_languages
 
 # Setup Neovim
 setup_neovim
