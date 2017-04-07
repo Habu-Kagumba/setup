@@ -1,3 +1,4 @@
+#!/bin/bash
 # This is a simple basic starter setup for a mac dev machine.
 
 DOTFILES_REPO="https://github.com/habu-kagumba/dotfiles"
