@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
+
 # This is a simple basic starter setup for a mac dev machine.
 
 DOTFILES_REPO="https://github.com/habu-kagumba/dotfiles"
@@ -58,7 +61,7 @@ dotfiles_setup() {
 
   cd $DOTFILES_DEST
 
-  declare -a farms=("homebrew" "ag" "bash" "excuberant_tags" "git" "neovim" "rubygems" "scripts" "tmux" "utils" "zsh")
+  declare -a farms=("homebrew" "ag" "bash" "excuberant_tags" "git" "neovim" "rubygems" "scripts" "tmux" "zsh")
 
   for i in "${farms[@]}"
   do
