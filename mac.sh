@@ -172,6 +172,15 @@ setup_neovim() {
   gem install neovim
 }
 
+setup_mpd() {
+    print_out "Setting up mpd"
+
+    pip install beets pylast requests
+    # Put your music in ~/Music/beets
+    # Run beet import ~/Music/beets
+    # Enjoy
+}
+
 homebrew_setup
 dotfiles_setup
 
