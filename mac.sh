@@ -61,7 +61,7 @@ dotfiles_setup() {
 
   cd $DOTFILES_DEST
 
-  declare -a farms=("homebrew" "ag" "bash" "excuberant_tags" "git" "neovim" "rubygems" "scripts" "tmux" "zsh" "mpd")
+  declare -a farms=("homebrew" "ag" "bash" "excuberant_tags" "git" "neovim" "rubygems" "scripts" "tmux" "zsh")
 
   for i in "${farms[@]}"
   do
@@ -78,84 +78,50 @@ set_shell() {
   if sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"; then
     printf " ${GREEN}✔︎${NORMAL}\n"
   fi
-
-  # setup iterm
-  yarn global add pure-prompt
 }
 
 setup_languages() {
   # --------------------------------------
+  # ASDF
+  # --------------------------------------
+  print_out "Setting up ASDF"
+
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.1
+
+  # --------------------------------------
   # Node
   # --------------------------------------
-  print_out "Setting up node"
+  print_out "Setting up Node"
 
-  local node_version;
-  node_version="7.7.4"
-
-  nodenv install "$node_version"
-
-  nodenv global "$node_version"
+  asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 
   # --------------------------------------
   # Ruby
   # --------------------------------------
   print_out "Setting up ruby"
 
-  local ruby_version;
-  ruby_version="$(rbenv install -l | grep -v - | tail -1 | sed -e 's/^ *//')"
-
-  rbenv install "$ruby_version"
-
-  rbenv global "$ruby_version"
-
-  gem update --system
-  gem install bundler
+  asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 
   # --------------------------------------
   # Python
   # --------------------------------------
   print_out "Setting up python"
 
-  local python_version;
-  python2_version="2.7.13"
-  python3_version="3.6.1"
-
-  pyenv install -s "$python2_version"
-  pyenv install -s "$python3_version"
-
-  pyenv global "$python3_version"
-
-  # --------------------------------------
-  # Scala
-  # --------------------------------------
-  print_out "Setting up scala"
-
-  local scala_version;
-  scala_version="scala-2.12.1"
-
-  curl -LO http://www.scala-lang.org/files/archive/"$scala_version".tgz
-  tar xf "$scala_version".tgz -C ~/.scalaenv/versions/
-  rm -rf "$scala_version".tgz
-
-  scalaenv global "$scala_version"
+  asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
 
   # --------------------------------------
   # Go
   # --------------------------------------
   print_out "Setting up Go"
 
-  local go_version;
-  go_version="$(goenv install -l | grep -v - | tail -1 | sed -e 's/^ *//')"
+  asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
 
-  goenv install "$go_version"
+  # --------------------------------------
+  # Rust
+  # --------------------------------------
+  print_out "Setting up Rust"
 
-  goenv global "$go_version"
-
-  nodenv rehash
-  rbenv rehash
-  pyenv rehash
-  scalaenv rehash
-  goenv rehash
+  asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
 }
 
 setup_neovim() {
@@ -172,15 +138,6 @@ setup_neovim() {
   gem install neovim
 }
 
-setup_mpd() {
-    print_out "Setting up mpd"
-
-    pip install beets pylast requests
-    # Put your music in ~/Music/beets
-    # Run beet import ~/Music/beets
-    # Enjoy
-}
-
 homebrew_setup
 dotfiles_setup
 
@@ -192,12 +149,12 @@ print_out "Installing packages"
 brew bundle
 
 # Uncomment this if you haven't setup zsh or oh-my-zsh yet.
-set_shell
+# set_shell
 
 # Setup Node, Ruby, Python, Scala and Go
-setup_languages
+# setup_languages
 
 # Setup Neovim
-setup_neovim
+# setup_neovim
 
 cd -
