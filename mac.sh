@@ -7,6 +7,9 @@ set -e
 DOTFILES_REPO="https://github.com/habu-kagumba/dotfiles"
 DOTFILES_DEST="$HOME/dotfiles"
 
+TMUX_REPO="https://github.com/tmux-plugins/tpm"
+TMUX_DEST="$HOME/.tmux/plugins/tpm"
+
 # Pretty utils
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -55,6 +58,14 @@ dotfiles_setup() {
     printf "\n${CYAN}Cloning dotfiles${NORMAL}"
 
     if git clone -q $DOTFILES_REPO $HOME/dotfiles; then
+      printf " ${GREEN}✔︎${NORMAL}\n"
+    fi
+  fi
+
+  if ! [ -d "$TMUX_DEST" ]; then
+    printf "\n${CYAN}Cloning tmux plugins${NORMAL}"
+
+    if git clone -q $TMUX_REPO $TMUX_DEST; then
       printf " ${GREEN}✔︎${NORMAL}\n"
     fi
   fi
@@ -141,12 +152,12 @@ setup_neovim() {
 homebrew_setup
 dotfiles_setup
 
-cd $HOME
+# cd $HOME
 
-print_out "Installing packages"
+# print_out "Installing packages"
 
 # Install all packages from brew.
-brew bundle
+# brew bundle
 
 # Uncomment this if you haven't setup zsh or oh-my-zsh yet.
 # set_shell
@@ -157,4 +168,4 @@ brew bundle
 # Setup Neovim
 # setup_neovim
 
-cd -
+# cd -
