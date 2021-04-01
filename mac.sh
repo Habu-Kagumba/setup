@@ -96,8 +96,9 @@ setup_languages() {
   # ASDF
   # --------------------------------------
   print_out "Setting up ASDF"
+  print_out "You should probably check github for latest asdf version!"
 
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.1
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
 
   # --------------------------------------
   # Node
@@ -105,6 +106,7 @@ setup_languages() {
   print_out "Setting up Node"
 
   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+  asdf install nodejs latest
 
   # --------------------------------------
   # Ruby
@@ -112,6 +114,7 @@ setup_languages() {
   print_out "Setting up ruby"
 
   asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+  asdf install ruby latest
 
   # --------------------------------------
   # Python
@@ -119,6 +122,7 @@ setup_languages() {
   print_out "Setting up python"
 
   asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
+  asdf install python 2.7.18 latest
 
   # --------------------------------------
   # Go
@@ -135,10 +139,21 @@ setup_languages() {
   asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
 }
 
+install_language_versions() {
+    print_out "Will probably fail, don't cry, read the error and sort it..."
+
+    asdf install nodejs latest
+    asdf install ruby latest
+    asdf install python 2.7.18 latest
+    asdf install python latest
+    asdf install go latest
+    asdf install rust latest
+}
+
 setup_neovim() {
   print_out "Setting up Neovim"
 
-  pyenv virtualenv 2.7.13 neovim2
+  gem install pry bundler neovim rubocop solargraph
 
   pyenv activate neovim2
   pip install websocket-client sexpdata neovim
@@ -162,7 +177,7 @@ dotfiles_setup
 # Uncomment this if you haven't setup zsh or oh-my-zsh yet.
 # set_shell
 
-# Setup Node, Ruby, Python, Scala and Go
+# Setup Node, Ruby, Python and Go
 # setup_languages
 
 # Setup Neovim
