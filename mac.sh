@@ -106,7 +106,6 @@ setup_languages() {
   print_out "Setting up Node"
 
   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-  asdf install nodejs latest
 
   # --------------------------------------
   # Ruby
@@ -114,15 +113,6 @@ setup_languages() {
   print_out "Setting up ruby"
 
   asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-  asdf install ruby latest
-
-  # --------------------------------------
-  # Python
-  # --------------------------------------
-  print_out "Setting up python"
-
-  asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
-  asdf install python 2.7.18 latest
 
   # --------------------------------------
   # Go
@@ -142,10 +132,11 @@ setup_languages() {
 install_language_versions() {
     print_out "Will probably fail, don't cry, read the error and sort it..."
 
-    asdf install nodejs latest
+    printf "\n${CYAN}NB: M1.... just arghhhhh. Installing node and python won't work. You going to have to sort it out yourself.${NORMAL}\n"
+    printf "\n${CYAN}For node, some arm mumbo jumbo${NORMAL}\n"
+
+    # asdf install nodejs latest
     asdf install ruby latest
-    asdf install python 2.7.18 latest
-    asdf install python latest
     asdf install go latest
     asdf install rust latest
 }
@@ -155,13 +146,13 @@ setup_neovim() {
 
   gem install pry bundler neovim rubocop solargraph
 
-  pyenv activate neovim2
-  pip install websocket-client sexpdata neovim
-  source deactivate
-
-  pip install neovim flake8
+  pip3 install neovim flake8
 
   gem install neovim
+}
+
+shell_utils() {
+    npm i -g pure-prompt
 }
 
 homebrew_setup
@@ -176,9 +167,11 @@ dotfiles_setup
 
 # Uncomment this if you haven't setup zsh or oh-my-zsh yet.
 # set_shell
+# shell_utils
 
 # Setup Node, Ruby, Python and Go
 # setup_languages
+# install_language_versions
 
 # Setup Neovim
 # setup_neovim
